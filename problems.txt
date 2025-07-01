@@ -1,0 +1,84 @@
+Tổng quan về thử thách: Bước vào vị trí tiên phong trong nghiên cứu AI y tế với Thử thách ENTRep, được tổ chức như một phần của ACM MM 2025 tại Dublin, Ireland. Sáng kiến này cung cấp quyền truy cập độc quyền vào bộ dữ liệu hình ảnh nội soi tai mũi họng chất lượng cao, được chú thích bởi chuyên gia được thu thập tại Bệnh viện Thống Nhất ở Thành phố Hồ Chí Minh, Việt Nam. Các chuyên gia lâm sàng đã dán nhãn tỉ mỉ cho từng hình ảnh để nắm bắt các bệnh lý tai mũi họng và sắc thái giải phẫu khác nhau. Trong thử thách này, bạn sẽ phát triển các giải pháp sáng tạo trên ba nhiệm vụ chính: 
+Truy xuất hình ảnh sang hình ảnh: Thiết kế các hệ thống hiệu quả có thể nhanh chóng truy xuất các hình ảnh có hình ảnh tương tự nhau từ cơ sở dữ liệu mở rộng, cho phép các bác sĩ lâm sàng tiến hành phân tích so sánh và đưa ra quyết định sáng suốt.
+
+
+link thư mục images: ‘/D:/train/train/imgs’
+link json ‘/D:/train/train/cls.json’
+
+public test images: ‘/D:/PublicData/PublicTest/’
+public test csv chứa tên ảnh images: ‘/D:/Track1_Public/cls.csv’
+
+________________________________________
+Mô tả bộ dữ liệu và các nhiệm vụ
+1. Định dạng tập dữ liệu
+Mỗi hình ảnh trong bộ dữ liệu ENTRep được các chuyên gia lâm sàng chú thích. Tệp chú thích ở định dạng JSON, với mỗi mục được cấu trúc như sau:
+JSON
+{"13c2f10e-d822-4721-b520-9a426e1a3552.png": "vc-open", "078c91ff-9899-436c-854c-4227df8c1229.png": "nose-right", "9e566a09-0695-418b-b11e-12e2f3ece4c6.png": "vc-closed", "a905c77d-f9f1-4b88-bd71-3be6bab656e9.png": "nose-left", "084e8d96-6170-4b04-88e7-ac699f8fd999.png": "nose-left", "57cd1a08-297a-49ae-80a7-94f6237fc388.png": "throat",  .......
+}
+
+________________________________________
+2. Các nhiệm vụ thử thách
+Nhiệm vụ 1: Phân loại hình ảnh
+●	Mục tiêu: Dự đoán Classification 
+●	Đầu vào: Hình ảnh thô.
+●	Đầu ra: Vùng giải phẫu (ví dụ: Tai phải, Tai trái, Mũi phải, Mũi trái, Họng, VC-mở, VC-đóng).
+Đánh giá:
+●	Độ chính xác cho từng nhãn riêng biệt Classification 
+●	Tùy chọn: Độ chính xác chung nếu cả hai nhãn được dự đoán cùng nhau
+
+
+
+________________________________________
+Hướng dẫn nộp bài
+Để chuẩn bị và nộp kết quả của bạn, vui lòng làm theo các hướng dẫn dưới đây.
+Danh sách nhãn
+Kết quả phân loại của bạn phải sử dụng một trong 7 nhãn sau, được biểu thị bằng các chỉ số số từ 0–6:
+Chỉ số	Nhãn
+0	nose-right
+1	nose-left
+2	ear-right
+3	ear-left
+4	vc-open
+5	vc-closed
+6	throat
+
+
+	
+Xuất sang Trang tính
+Định dạng đầu ra
+Bạn phải nộp một tệp .json duy nhất chứa các dự đoán của mình.
+Tệp JSON phải là một từ điển (dictionary) trong đó:
+●	Mỗi khóa (key) là tên tệp hình ảnh (ví dụ: 13046885_240301094056892831_121_image01.png).
+●	Mỗi giá trị (value) là chỉ số nhãn dự đoán tương ứng (một số nguyên từ 0 đến 6) dựa trên danh sách nhãn ở trên.
+Ví dụ:
+JSON
+{
+  "13046885_240301094056892831_121_image01.png": 2,
+  "13051005_240522144507579831_121_image06.png": 4
+}
+
+________________________________________
+Đóng gói bài nộp của bạn
+Nén tệp .json của bạn vào một tệp lưu trữ .zip.
+●	Tệp lưu trữ chỉ được chứa một tệp JSON duy nhất.
+●	Tệp JSON phải nằm ở cấp độ gốc của tệp zip (tức là không nằm trong bất kỳ thư mục con nào).
+Hướng dẫn tải lên
+Tải tệp .zip của bạn lên nền tảng nộp bài đã được chỉ định.
+________________________________________
+Danh sách kiểm tra trước khi nộp
+●	Tất cả các nhãn dự đoán đều thuộc 7 nhãn cho phép.
+●	Tên tệp hình ảnh trong JSON khớp chính xác với bộ dữ liệu.
+●	Tệp zip chỉ chứa đúng một tệp JSON.
+●	Tệp JSON nằm ở cấp độ gốc của tệp zip
+●	Nhãn 4 (vc-open): 159 hình ảnh 
+●	Nhãn 0 (nose-right): 325 hình ảnh 
+●	Nhãn 5 (vc-closed): 147 hình ảnh 
+●	Nhãn 1 (nose-left): 290 hình ảnh 
+●	Nhãn 6 (throat): 81 hình ảnh 
+●	Nhãn 2 (ear-right): 156 hình ảnh 
+●	Nhãn 3 (ear-left): 133 hình ảnh 
+●	Tất cả hình ảnh đều hợp lệ. 
+●	Kích thước trung bình: 640.00 x 480.00 
+●	Kích thước nhỏ nhất: 640 x 480 
+●	Kích thước lớn nhất: 640 x 480 
+
